@@ -18,7 +18,7 @@ const resources = [
     description: "Guidance for ethical and effective AI use.",
     category: "AI",
     tags: ["Policy", "AI"],
-    link: "#"
+    link: "ai-classroom-guidance.html"
   },
   {
     title: "Professional Learning Hub",
