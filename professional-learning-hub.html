@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Professional Learning Hub</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .form-container {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: #f9f9f9;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #333;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="date"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-family: Arial, sans-serif;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .success-message {
+      display: none;
+      padding: 1rem;
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Professional Learning Hub</h1>
+  </header>
+  <main>
+    <section>
+      <h2>Professional Development Request Form</h2>
+      <p>Submit your professional development needs and we'll work to connect you with relevant learning opportunities and certifications.</p>
+    </section>
+
+    <div class="form-container">
+      <div class="success-message" id="successMessage">
+        Thank you! Your professional development request has been submitted.
+      </div>
+
+      <form id="pdRequestForm">
+        <div class="form-group">
+          <label for="name">Name *</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="school">School/District</label>
+          <input type="text" id="school" name="school" />
+        </div>
+
+        <div class="form-group">
+          <label for="role">Role/Position *</label>
+          <select id="role" name="role" required>
+            <option value="">Select your role</option>
+            <option value="Teacher">Teacher</option>
+            <option value="Administrator">Administrator</option>
+            <option value="Instructional Coach">Instructional Coach</option>
+            <option value="Technology Specialist">Technology Specialist</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="topic">Professional Development Topic *</label>
+          <textarea id="topic" name="topic" placeholder="Describe the topic or skill you'd like to develop (e.g., AI in the classroom, digital literacy, STEM education, etc.)" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="format">Preferred Learning Format</label>
+          <select id="format" name="format">
+            <option value="">Select preferred format</option>
+            <option value="Online">Online</option>
+            <option value="In-Person">In-Person</option>
+            <option value="Hybrid">Hybrid</option>
+            <option value="Self-Paced">Self-Paced</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="timeline">Desired Timeline</label>
+          <input type="date" id="timeline" name="timeline" />
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Additional Notes</label>
+          <textarea id="notes" name="notes" placeholder="Any additional information or requirements..."></textarea>
+        </div>
+
+        <button type="submit">Submit PD Request</button>
+      </form>
+    </div>
+  </main>
+  <footer>
+    <p><a href="index.html">Back to Resource Hub</a></p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("pdRequestForm");
+    const successMessage = document.getElementById("successMessage");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      // Store form data in localStorage
+      const formData = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        school: document.getElementById("school").value,
+        role: document.getElementById("role").value,
+        topic: document.getElementById("topic").value,
+        format: document.getElementById("format").value,
+        timeline: document.getElementById("timeline").value,
+        notes: document.getElementById("notes").value,
+        submittedAt: new Date().toLocaleString()
+      };
+
+      // Save to localStorage
+      let submissions = JSON.parse(localStorage.getItem("pdRequests")) || [];
+      submissions.push(formData);
+      localStorage.setItem("pdRequests", JSON.stringify(submissions));
+
+      // Show success message
+      successMessage.style.display = "block";
+      form.reset();
+
+      // Hide message after 5 seconds
+      setTimeout(() => {
+        successMessage.style.display = "none";
+      }, 5000);
+    });
+  </script>
+</body>
+</html>

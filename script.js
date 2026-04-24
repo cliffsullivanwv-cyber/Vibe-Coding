@@ -21,11 +21,18 @@ const resources = [
     link: "ai-classroom-guidance.html"
   },
   {
+    title: "Copilot for Education",
+    description: "AI Assistant for Educator Tasks.",
+    category: "AI",
+    tags: ["AI", "Productivity"],
+    link: "https://copilot.microsoft.com/"
+  },
+  {
     title: "Professional Learning Hub",
     description: "On‑demand PD and certifications.",
     category: "PD",
     tags: ["PD", "Certifications"],
-    link: "#"
+    link: "professional-learning-hub.html"
   }
 ];
 
@@ -58,7 +65,7 @@ function renderResources() {
           ${res.tags.map(tag => `<span class="tag">${tag}</span>`).join("")}
         </div>
         <div class="card-actions">
-          <a href="${res.link}" target="_blank">Open</a>
+          <a href="${res.link}" ${res.link.startsWith("http") ? 'target="_blank"' : ""}>Open</a>
           <span class="favorite ${isFavorite ? "active" : ""}">★</span>
         </div>
       `;
